@@ -6,6 +6,7 @@ module.exports = {
   devtool: "inline-source-map",
   mode: "production",
   target: "electron-renderer",
+
   module: {
     rules: [
       {

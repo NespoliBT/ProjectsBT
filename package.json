@@ -1,12 +1,15 @@
 {
   "name": "boilerbt",
-  "version": "0.1.0",
+  "version": "v0.1.1",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "watch": "webpack --watch",
-    "build": "electron-packager .",
-    "build:src": "webpack"
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder -l AppImage",
+    "postinstall": "electron-builder install-app-deps",
+    "release": "electron-builder -p onTag",
+    "build": "webpack"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",
@@ -32,5 +35,21 @@
     "electron-updater": "^4.0.4",
     "express": "^4.17.1",
     "sqlite3": "^5.0.0"
+  },
+  "build": {
+    "directories": {
+      "output": "release/"
+    },
+    "appId": "projectsbt.nespolibt",
+    "linux": {
+      "target": "AppImage"
+    },
+    "publish": [
+      "github"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NespoliBT/ProjectsBT.git"
   }
 }

@@ -15,9 +15,9 @@ function createWindow() {
       nodeIntegration: true,
     },
   });
-
+  console.log(`file://${__dirname}/dist/index.html`);
   // Load index.html
-  win.loadFile("./dist/index.html");
+  win.loadFile(`${__dirname}/dist/index.html`);
 }
 
 app.on("ready", () => {
@@ -31,6 +31,7 @@ app.on("ready", () => {
 });
 
 autoUpdater.on("checking-for-update", () => {
+  console.log("prova");
   dispatch("Checking for update...");
 });
 

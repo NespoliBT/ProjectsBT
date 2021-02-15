@@ -1,8 +1,9 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-module.exports = {
+const clientConfig = {
   entry: "./src/index.ts",
+
   devtool: "inline-source-map",
   mode: "production",
   target: "electron-renderer",
@@ -40,10 +41,6 @@ module.exports = {
 
   resolve: {
     extensions: [".ts", ".js"],
-    fallback: {
-      fs: false,
-      path: false,
-    },
   },
 
   plugins: [
@@ -57,3 +54,27 @@ module.exports = {
     }),
   ],
 };
+
+const serverConfig = {
+  entry: "./backend/main.ts",
+
+  devtool: "inline-source-map",
+  mode: "production",
+  target: "electron-main",
+
+  module: {
+    rules: [
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+
+  resolve: {
+    extensions: [".ts", ".js"],
+  },
+};
+
+module.exports = clientConfig;

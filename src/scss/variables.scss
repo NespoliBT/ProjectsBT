@@ -6,7 +6,8 @@ $color_4: #63aec0;
 $color_5: #e25987;
 $color_6: #85ba86;
 $color_7: #b877b4;
-$color_8: #e5e5e5;
+$color_8: #fec262;
+$color_9: #e5e5e5;
 
 * {
   &::-webkit-scrollbar {
@@ -27,25 +28,26 @@ $color_8: #e5e5e5;
   border: 0;
   outline: none;
   box-sizing: border-box;
-  font-family: Iosevka;
-  color: $color_8;
-}
-
-body,
-html {
-  height: 100%;
+  font-weight: 100;
+  color: $color_9;
 }
 
 body {
   background: $color_1;
+  font-family: DMSans;
 }
 
 @font-face {
-  font-family: Iosevka;
-  src: url("../fonts/Iosevka.ttf") format("truetype");
+  font-family: NerdFont;
+  src: url("../fonts/NerdFont.ttf") format("truetype");
 }
 
 @font-face {
   font-family: Pacifico;
   src: url("../fonts/Pacifico.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: DMSans;
+  src: url("../fonts/DMSans.ttf") format("truetype");
 }

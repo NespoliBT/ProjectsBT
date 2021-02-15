@@ -3,23 +3,117 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BoilerBT</title>
+    <title>ProjectsBT</title>
   </head>
   <body>
-    <div class="w3-container">
-      <h1 style="color: blueviolet">Pingo App - New</h1>
-      <h3>Brand new app</h3>
+    <div class="content">
+      <div id="projects"></div>
+      <div id="addProject"></div>
+      <div id="projectInfoOverlay">
+        <div class="projectInfo">
+          <div class="left">
+            <div id="projectName"></div>
+            <div id="projectTechnology"></div>
+            <div id="projectDescription"></div>
 
-      <p>Current version: <span id="version"></span></p>
+            <div class="actions">
+              <div id="edit">Modifica</div>
+              <div id="delete">Elimina</div>
+            </div>
 
-      <div id="messages" style="color: cyan"></div>
+            <div id="credentials"></div>
+          </div>
 
-      <div class="w3-light-grey">
-        <div
-          class="w3-blue"
-          style="height: 24px; width: 0%"
-          id="progressBar"
-        ></div>
+          <div class="right"></div>
+
+          <div id="closeProjectInfoOverlay"></div>
+        </div>
+      </div>
+      <div id="newProjectOverlay">
+        <form id="newProjectForm">
+          <h1>Nuovo Progetto</h1>
+          <div class="left">
+            <input type="text" id="newProjectName" placeholder="Nome" />
+            <input
+              type="text"
+              id="newProjectTechnology"
+              placeholder="Tecnologia"
+            />
+            <textarea
+              id="newProjectDescription"
+              cols="30"
+              rows="10"
+              placeholder="Descrizione"
+            ></textarea>
+          </div>
+          <div class="right">
+            <h2>Credenziali</h2>
+
+            <div class="enviromentCred">
+              <h4>Produzione</h4>
+
+              <h3>Database</h3>
+              <input
+                type="text"
+                class="dbUser"
+                id="dbProdUser"
+                placeholder="Username"
+              />
+              <input
+                type="text"
+                class="dbPassword"
+                id="dbProdPassword"
+                placeholder="Password"
+              />
+              <input
+                type="text"
+                class="dbIP"
+                id="dbProdIP"
+                placeholder="IP Address"
+              />
+
+              <h3>Utente</h3>
+              <input
+                type="text"
+                class="userName"
+                id="userProdName"
+                placeholder="Username"
+              />
+              <input
+                type="text"
+                class="userPassword"
+                id="userProdPassword"
+                placeholder="Password"
+              />
+            </div>
+
+            <div class="enviroment">
+              <h4>Staging</h4>
+              <h3>Database</h3>
+              <input type="text" id="dbStagUser" placeholder="Username" />
+              <input type="text" id="dbStagPassword" placeholder="Password" />
+              <input type="text" id="dbStagIP" placeholder="IP Address" />
+
+              <h3>Utente</h3>
+              <input type="text" id="userStagName" placeholder="Username" />
+              <input type="text" id="userStagPassword" placeholder="Password" />
+            </div>
+
+            <div class="enviroment">
+              <h4>Development</h4>
+              <h3>Database</h3>
+              <input type="text" id="dbDevUser" placeholder="Username" />
+              <input type="text" id="dbDevPassword" placeholder="Password" />
+              <input type="text" id="dbDevIP" placeholder="IP Address" />
+
+              <h3>Utente</h3>
+              <input type="text" id="userDevName" placeholder="Username" />
+              <input type="text" id="userDevPassword" placeholder="Password" />
+            </div>
+          </div>
+          <button type="submit">Salva</button>
+          <div id="closeNewProjectOverlay"></div>
+        </form>
       </div>
     </div>
   </body>

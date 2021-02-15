@@ -1,5 +1,7 @@
-const { app, BrowserWindow } = require("electron");
-const { autoUpdater } = require("electron-updater");
+import { app, BrowserWindow } from "electron";
+import { autoUpdater } from "electron-updater";
+require("./server");
+
 let win;
 
 const dispatch = (data) => {
@@ -11,12 +13,12 @@ function createWindow() {
   win = new BrowserWindow({
     width: 800,
     height: 600,
+
     webPreferences: {
       nodeIntegration: true,
     },
   });
-  console.log(`file://${__dirname}/dist/index.html`);
-  // Load index.html
+
   win.loadFile(`${__dirname}/dist/index.html`);
 }
 
@@ -31,7 +33,6 @@ app.on("ready", () => {
 });
 
 autoUpdater.on("checking-for-update", () => {
-  console.log("prova");
   dispatch("Checking for update...");
 });
 

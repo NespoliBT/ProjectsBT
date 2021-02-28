@@ -1,24 +1,22 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var nodeExternals = require("webpack-node-externals");
 
 const clientConfig = {
   entry: "./src/index.ts",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.js",
+  },
 
   devtool: "inline-source-map",
   mode: "production",
   target: "electron-renderer",
+  externals: [nodeExternals()],
 
   module: {
     rules: [
-      {
-        test: /\.html$/,
-        use: [
-          {
-            loader: "html-loader",
-            options: { minimize: true },
-          },
-        ],
-      },
       {
         test: /\.tsx?$/,
         use: "ts-loader",
@@ -27,13 +25,14 @@ const clientConfig = {
       {
         test: /\.scss$/,
         use: ["style-loader", "css-loader", "sass-loader"],
+        exclude: /node_modules/,
       },
       {
         test: /\.(woff2?|ttf|otf|eot|svg)$/,
         exclude: /node_modules/,
         loader: "file-loader",
         options: {
-          name: "[path][name].[ext]",
+          name: "[name].[ext]",
         },
       },
     ],
@@ -44,37 +43,40 @@ const clientConfig = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "./index.html",
-    }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css",
+    }),
+    new HtmlWebpackPlugin({
+      template: __dirname + "/src/index.html",
     }),
   ],
 };
 
 const serverConfig = {
+  mode: "development",
   entry: "./backend/main.ts",
 
-  devtool: "inline-source-map",
-  mode: "production",
   target: "electron-main",
-
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: "ts-loader",
-        exclude: /node_modules/,
-      },
-    ],
-  },
+  externals: [nodeExternals()],
 
   resolve: {
     extensions: [".ts", ".js"],
   },
+
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [{ loader: "ts-loader" }],
+      },
+    ],
+  },
+  output: {
+    path: __dirname + "/dist",
+    filename: "main.js",
+  },
 };
 
-module.exports = clientConfig;
+module.exports = [clientConfig, serverConfig];

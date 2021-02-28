@@ -1,67 +1,9 @@
 import axios from "axios";
+import { createElement } from "../helpers/helpers";
+import { Project } from "../types/types";
 
 axios.defaults.baseURL = "http://localhost:41968";
 
-interface Project {
-  id: number;
-  name: string;
-  technology: string;
-  description: string;
-}
-
-interface Project {
-  id: number;
-  name: string;
-  technology: string;
-  description: string;
-  prodInfo?: {
-    db?: {
-      user: string;
-      password: string;
-      ip: string;
-    };
-    user?: {
-      name: string;
-      password: string;
-    };
-  };
-  stagInfo?: {
-    db?: {
-      user: string;
-      password: string;
-      ip: string;
-    };
-    user?: {
-      name: string;
-      password: string;
-    };
-  };
-  devInfo?: {
-    db?: {
-      user: string;
-      password: string;
-      ip: string;
-    };
-    user?: {
-      name: string;
-      password: string;
-    };
-  };
-  enviroments?: [
-    {
-      name: string;
-      db: {
-        user: string;
-        password: string;
-        ip: string;
-      };
-      user: {
-        name: string;
-        password: string;
-      };
-    }
-  ];
-}
 /** Shorthand for document.getElementById(id) */
 const select = (id: string) => document.getElementById(id);
 
@@ -78,11 +20,9 @@ export module projectService {
     projectTechnology.innerHTML = project.technology;
     projectDescription.innerHTML = project.description;
 
-    console.log(project);
+    credentials.innerHTML = "";
 
     project.enviroments?.map((env) => {
-      console.log(env);
-
       const envEl = createElement({
         className: "enviroment",
       });
@@ -92,23 +32,27 @@ export module projectService {
         content: env.name,
       });
 
+      Object.keys(env.plugins).map((e) => {
+        console.log(env.plugins[e]);
+      });
+
       const dbEl = createElement({
         className: "db",
       });
 
       const dbUser = createElement({
         className: "credential username",
-        content: env.db.user,
+        content: env.plugins.db.user,
       });
 
       const dbPassword = createElement({
         className: "credential password",
-        content: env.db.password,
+        content: env.plugins.db.password,
       });
 
       const dbIP = createElement({
         className: "credential ip",
-        content: env.db.ip,
+        content: env.plugins.db.ip,
       });
 
       const userEl = createElement({
@@ -117,18 +61,17 @@ export module projectService {
 
       const userName = createElement({
         className: "credential username",
-        content: env.user.name,
+        content: env.plugins.user.name,
       });
 
       const userPassword = createElement({
         className: "credential password",
-        content: env.user.password,
+        content: env.plugins.user.password,
       });
-
-      credentials.innerHTML = "";
 
       dbEl.append(dbUser, dbPassword, dbIP);
       userEl.append(userName, userPassword);
+
       envEl.append(envName, dbEl, userEl);
       credentials.append(envEl);
     });
@@ -203,13 +146,4 @@ export module projectService {
         });
     });
   }
-}
-
-function createElement({ className = "", id = "", content = "" }) {
-  let element = document.createElement("div");
-  element.setAttribute("class", className);
-  element.setAttribute("id", id);
-  element.innerHTML = content;
-
-  return element;
 }

@@ -1,5 +1,7 @@
 node_modules
-trackerbt-*
+projectsbt-*
 data/Database.db
 yarn-error.log
 release
+.todo
+dist

@@ -1,6 +1,8 @@
 import { app, BrowserWindow } from "electron";
 import { autoUpdater } from "electron-updater";
-require("./server");
+import { runServer } from "./server";
+
+runServer();
 
 let win;
 
@@ -19,7 +21,7 @@ function createWindow() {
     },
   });
 
-  win.loadFile(`${__dirname}/dist/index.html`);
+  win.loadFile(`${__dirname}/index.html`);
 }
 
 app.on("ready", () => {

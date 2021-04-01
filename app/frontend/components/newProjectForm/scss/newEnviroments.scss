@@ -1,0 +1,63 @@
+@import "../../../scss/variables.scss";
+
+.enviroment {
+  padding: 15px;
+  padding-right: 0;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background: $color_1;
+  border-radius: 10px;
+  margin-bottom: 10px;
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .name {
+      background: $color_2;
+      padding: 10px;
+      font-size: 20px;
+      border-radius: 10px;
+      flex-grow: 1;
+    }
+    .delete {
+      transition: 0.2s;
+      color: $color_5;
+      font-family: NerdFont;
+      font-size: 40px;
+      width: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0.8;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.newEnviroment {
+  transition: 0.2s;
+  font-family: NerdFont;
+  border: 2px dashed $color_7;
+  margin-right: 10px;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid transparent;
+    background: $color_6;
+    color: $color_1;
+  }
+}

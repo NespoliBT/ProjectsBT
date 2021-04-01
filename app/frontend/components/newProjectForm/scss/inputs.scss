@@ -1,0 +1,13 @@
+@import "../../../scss/variables.scss";
+
+input {
+  background: $color_2;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  flex: 1 1;
+}
+
+.err {
+  box-shadow: 0 0 2px 1px $color_5;
+}

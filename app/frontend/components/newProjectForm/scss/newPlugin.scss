@@ -1,0 +1,49 @@
+@import "../../../scss/variables.scss";
+
+h3 {
+  transition: 0.2s;
+  font-size: 25px;
+  margin: 10px 10px;
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+
+  &:before {
+    position: absolute;
+    transition: 0.2s;
+    opacity: 0;
+    content: "";
+    margin-left: 10px;
+    font-family: NerdFont;
+    color: $color_5;
+    left: -30px;
+    top: 3px;
+  }
+
+  &:hover {
+    color: $color_5;
+    margin-left: 30px;
+
+    &:before {
+      opacity: 1;
+    }
+  }
+
+  .inputs {
+    display: flex;
+  }
+}
+.standalonePlugin {
+  padding: 15px;
+  padding-right: 0;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background: $color_1;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  h3 {
+    margin-top: 0;
+  }
+}

@@ -1,0 +1,214 @@
+@import "../../../scss/variables.scss";
+
+.project {
+  transition: 0.5s;
+  height: 210px;
+  width: 350px;
+  background: $color_2;
+  border-radius: 10px;
+  margin: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  grid-template-columns: auto auto;
+
+  &:hover {
+    box-shadow: 0px 0px 0px 5px $color_7;
+  }
+
+  .header {
+    grid-area: name;
+    padding: 15px;
+    background: $color_4;
+    color: $color_1;
+    cursor: pointer;
+
+    .name {
+      font-size: 20px;
+    }
+
+    .technology {
+      font-size: 13px;
+      color: $color_2;
+
+      &:before {
+        content: "#";
+      }
+    }
+  }
+
+  .description {
+    grid-area: description;
+    overflow-y: scroll;
+    padding: 0px 5px;
+    margin: 10px;
+  }
+}
+
+.projectInfoOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(2px);
+  z-index: 1;
+
+  .projectInfo {
+    display: flex;
+    padding: 40px;
+    min-height: 500px;
+    background-color: $color_2;
+    position: relative;
+    height: calc(100% - 80px);
+    width: calc(100% - 80px);
+
+    border-radius: 10px;
+
+    .left {
+      width: 40%;
+      padding: 20px;
+      overflow-y: scroll;
+
+      .projectName {
+        font-size: 40px;
+        color: $color_4;
+        width: 100%;
+        font-family: Pacifico;
+      }
+
+      .projectTechnology {
+        font-size: 25px;
+        width: 100%;
+        margin: 0 auto;
+        border-bottom: 2px dashed $color_7;
+        padding-bottom: 20px;
+        margin-top: 5px;
+
+        &:before {
+          content: "#";
+        }
+      }
+      .projectDescription {
+        font-size: 20px;
+        margin: 20px auto;
+      }
+
+      .actions {
+        display: flex;
+
+        .edit,
+        .delete {
+          transition: 0.2s;
+          padding: 10px 20px;
+          border-radius: 100px;
+          margin: 0 10px;
+          cursor: pointer;
+          opacity: 0.8;
+          user-select: none;
+
+          &:hover {
+            opacity: 1;
+            transform: scale(1.05);
+          }
+        }
+        .edit {
+          background: $color_4;
+        }
+        .delete {
+          background: $color_5;
+        }
+      }
+    }
+
+    .right {
+      background: red;
+    }
+
+    .removePopupOverlay {
+      position: fixed;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+
+      .removePopup {
+        width: 500px;
+        padding: 20px;
+        border-radius: 10px;
+        background: $color_1;
+
+        .title {
+          text-align: center;
+          font-size: 30px;
+
+          span {
+            color: $color_4;
+            font-weight: 600;
+          }
+        }
+
+        .actions {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .yes,
+          .no {
+            transition: 0.2s;
+            flex: 1 1;
+            margin: 10px;
+            color: $color_1;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            cursor: pointer;
+            opacity: 0.8;
+
+            &:hover {
+              opacity: 1;
+              transform: scale(1.05);
+            }
+          }
+
+          .yes {
+            background: $color_6;
+          }
+
+          .no {
+            background: $color_5;
+          }
+        }
+      }
+    }
+
+    .closeProjectInfoOverlay {
+      transition: 0.2s;
+      position: absolute;
+      font-family: NerdFont;
+      top: 30px;
+      right: 20px;
+      height: 50px;
+      width: 50px;
+      font-size: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: $color_5;
+      border-radius: 50px;
+      opacity: 0.8;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+  }
+}

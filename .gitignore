@@ -1,6 +1,6 @@
 node_modules
 projectsbt-*
-data/Database.db
+public/build 
 yarn-error.log
 release
 .todo

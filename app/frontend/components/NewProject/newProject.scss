@@ -1,4 +1,4 @@
-@import "../../../scss/variables.scss";
+@import "../../scss/variables.scss";
 
 .newProjectButton {
   transition: 0.2s;
@@ -37,10 +37,16 @@
 
   form {
     position: relative;
-    width: calc(100% - 70px);
-    height: calc(100% - 70px);
+
+    // width: calc(100% - 70px);
+    // height: calc(100% - 70px);
+    width: calc(100% - 0px);
+    height: calc(100% - 0px);
+
+    // border-radius: 10px;
+    border-radius: 0px;
+
     background: $color_2;
-    border-radius: 10px;
     padding: 40px;
 
     display: grid;
@@ -120,7 +126,7 @@
         flex-wrap: wrap;
 
         .pluginButton {
-          transition: 0.1s;
+          transition: 0.4s;
           font-size: 40px;
           margin: 10px;
           height: 60px;

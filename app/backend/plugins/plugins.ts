@@ -15,6 +15,12 @@ const plugins = [
     envBound: true,
   },
   {
+    name: "Sito",
+    icon: "",
+    inputs: [i.ip],
+    envBound: true,
+  },
+  {
     name: "Git",
     icon: "",
     inputs: [i.ip],

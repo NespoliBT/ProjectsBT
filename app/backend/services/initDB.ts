@@ -58,6 +58,7 @@ function runMigrations(db: Database) {
   CREATE TABLE IF NOT EXISTS plugins (
     id             INTEGER PRIMARY KEY AUTOINCREMENT,
     enviromentId   INTEGER,
+    projectId      INTEGER,
     name           TEXT
   )
 `);

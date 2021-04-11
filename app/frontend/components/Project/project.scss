@@ -1,4 +1,4 @@
-@import "../../../scss/variables.scss";
+@import "../../scss/variables.scss";
 
 .project {
   transition: 0.5s;
@@ -63,10 +63,14 @@
     min-height: 500px;
     background-color: $color_2;
     position: relative;
-    height: calc(100% - 80px);
-    width: calc(100% - 80px);
 
-    border-radius: 10px;
+    // height: calc(100% - 80px);
+    // width: calc(100% - 80px);
+    height: 100%;
+    width: 100%;
+
+    // border-radius: 10px;
+    border-radius: 0px;
 
     .left {
       width: 40%;
@@ -100,7 +104,7 @@
       .actions {
         display: flex;
 
-        .edit,
+        // .edit,
         .delete {
           transition: 0.2s;
           padding: 10px 20px;
@@ -115,9 +119,9 @@
             transform: scale(1.05);
           }
         }
-        .edit {
-          background: $color_4;
-        }
+        // .edit {
+        //   background: $color_4;
+        // }
         .delete {
           background: $color_5;
         }
@@ -125,7 +129,10 @@
     }
 
     .right {
-      background: red;
+      margin-top: 80px;
+      margin-left: 30px;
+      width: 60%;
+      overflow-y: scroll;
     }
 
     .removePopupOverlay {
@@ -138,6 +145,7 @@
       justify-content: center;
       align-items: center;
       backdrop-filter: blur(5px);
+      z-index: 100;
 
       .removePopup {
         width: 500px;

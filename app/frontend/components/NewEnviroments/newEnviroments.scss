@@ -1,8 +1,7 @@
-@import "../../../scss/variables.scss";
+@import "../../scss/variables.scss";
 
 .enviroment {
   padding: 15px;
-  padding-right: 0;
 
   display: flex;
   justify-content: center;
@@ -28,7 +27,8 @@
       color: $color_5;
       font-family: NerdFont;
       font-size: 40px;
-      width: 80px;
+      width: 60px;
+      padding-left: 15px;
       display: flex;
       justify-content: center;
       align-items: center;

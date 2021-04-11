@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { FormPlugin } from "../../types/types";
-  import NewPlugin from "./NewPlugin.svelte";
+  import NewPlugin from "@components/NewPlugin/NewPlugin.svelte";
   import { fly } from "svelte/transition";
   import { newProjectStore } from "../../stores";
 
@@ -11,32 +11,30 @@
   export function addPlugin(plugin: FormPlugin) {
     if (!plugin.envBound) {
       standalonePlugins = [...standalonePlugins, plugin];
+    } else if (selectedEnv !== -1) {
+      enviroments[selectedEnv].plugins = [
+        ...enviroments[selectedEnv].plugins,
+        plugin,
+      ];
     } else {
-      if (selectedEnv !== -1) {
-        enviroments[selectedEnv].plugins = [
-          ...enviroments[selectedEnv].plugins,
-          plugin,
-        ];
-      } else {
-        enviroments = [
-          ...enviroments,
+      enviroments = [
+        ...enviroments,
+        {
+          name: "",
+          plugins: [plugin],
+        },
+      ];
+      selectedEnv = 0;
+
+      newProjectStore.update((state) => {
+        state.enviroments = [
           {
             name: "",
-            plugins: [plugin],
+            plugins: [],
           },
         ];
-        selectedEnv = 0;
-
-        newProjectStore.update((state) => {
-          state.enviroments = [
-            {
-              name: "",
-              plugins: [],
-            },
-          ];
-          return state;
-        });
-      }
+        return state;
+      });
     }
   }
 
@@ -70,9 +68,10 @@
   function deleteEnv(id: number) {
     newProjectStore.update((state) => {
       state.enviroments = state.enviroments.filter((e, i) => i != id);
-      enviroments = enviroments.filter((e, i) => i != id);
       return state;
     });
+
+    enviroments = enviroments.filter((e, i) => i != id);
 
     selectedEnv = enviroments.length - 1;
   }
@@ -103,17 +102,30 @@
       <div class="delete" on:click={() => deleteEnv(envId)}></div>
     </div>
     {#each enviroment.plugins as plugin, pluginId}
-      <NewPlugin {plugin} {envId} {pluginId} />
+      <NewPlugin
+        {plugin}
+        {envId}
+        {pluginId}
+        on:delete={({ detail: { id } }) =>
+          (enviroment.plugins = enviroment.plugins.filter(
+            (plugin, i) => i !== id
+          ))}
+      />
     {/each}
   </div>
 {/each}
 {#each standalonePlugins as plugin, pluginId}
   <div class="standalonePlugins">
-    <NewPlugin {plugin} {pluginId} />
+    <NewPlugin
+      {plugin}
+      {pluginId}
+      on:delete={({ detail: { id } }) =>
+        (standalonePlugins = standalonePlugins.filter((plugin, i) => i !== id))}
+    />
   </div>
 {/each}
 <div class="newEnviroment" on:click={() => addEnv()}></div>
 
 <style lang="scss">
-  @import "./scss/newEnviroments.scss";
+  @import "./newEnviroments.scss";
 </style>

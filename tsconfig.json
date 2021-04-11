@@ -1,5 +1,11 @@
 {
-    "extends": "@tsconfig/svelte/tsconfig.json",
-    "include": ["app/**/*"],
-    "exclude": ["node_modules/*", "__sapper__/*", "public/*"]
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "include": ["app/**/*"],
+  "exclude": ["node_modules/*", "__sapper__/*", "public/*"],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["app/frontend/components/*"]
+    }
+  }
 }

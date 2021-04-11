@@ -4,6 +4,10 @@ import commonjs from "@rollup/plugin-commonjs";
 import { nodeResolve } from "@rollup/plugin-node-resolve";
 import typescript from "@rollup/plugin-typescript";
 import autoPreprocess from "svelte-preprocess";
+import alias from "@rollup/plugin-alias";
+import path from "path";
+
+const projectRootDir = path.resolve(__dirname);
 
 export default [
   {
@@ -22,6 +26,17 @@ export default [
           css.write("index.css");
         },
         preprocess: autoPreprocess(),
+      }),
+      alias({
+        entries: [
+          {
+            find: "@components",
+            replacement: path.resolve(
+              projectRootDir,
+              "app/frontend/components"
+            ),
+          },
+        ],
       }),
       commonjs(),
       json(),

@@ -1,0 +1,196 @@
+@import "../../../scss/variables.scss";
+
+.close {
+  transition: 0.2s;
+  padding: 10px;
+  border-radius: 10px;
+  background: $color_5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  margin: 0 25%;
+  cursor: pointer;
+  opacity: 0.8;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+.header {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .name {
+    font-size: 50px;
+    text-align: center;
+    width: 100%;
+    font-family: Pacifico;
+    color: $color_4;
+  }
+  .description {
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+  }
+}
+.menu {
+  font-family: NerdFont;
+  font-size: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 30px 0;
+
+  .readme,
+  .commit {
+    padding: 0 40px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .readme {
+    border-right: 2px solid $color_7;
+  }
+}
+
+.content {
+  .branches {
+    background: $color_1;
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    position: relative;
+
+    .selectedBranch {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+
+      &:before {
+        content: "";
+        font-family: NerdFont;
+        font-size: 30px;
+        margin-right: 20px;
+        color: $color_6;
+      }
+    }
+
+    .select {
+      position: absolute;
+      z-index: 20;
+      background: $color_1;
+      left: 0;
+      top: 50px;
+      width: 100%;
+      padding: 20px;
+      border-radius: 10px;
+      max-height: 500px;
+      overflow-y: scroll;
+
+      .branch {
+        margin: 10px;
+        padding: 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        background: $color_2;
+
+        &.current {
+          border: 2px solid $color_6;
+        }
+      }
+    }
+  }
+
+  .commits {
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 50px;
+
+    .commit {
+      display: flex;
+      background: $color_1;
+      margin: 10px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      height: 150px;
+      box-shadow: 0px 8px 10px 0 $color_1;
+      cursor: pointer;
+
+      .author {
+        position: relative;
+        width: 20%;
+
+        .propic {
+          height: 100%;
+          border-right: 5px solid $color_7;
+        }
+      }
+
+      .message {
+        width: 80%;
+        font-size: 20px;
+        margin-left: 20px;
+        padding: 20px;
+        overflow-y: scroll;
+        .text {
+          border-bottom: 3px dashed $color_7;
+          margin-bottom: 10px;
+          overflow-x: scroll;
+        }
+
+        .name {
+          margin-top: 10px;
+        }
+      }
+
+      &.more {
+        transition: 0.2s;
+        position: absolute;
+        width: 100%;
+      }
+    }
+
+    &:hover {
+      .commit.more:nth-of-type(2) {
+        transform: translateY(10px) scale(0.95) !important ;
+      }
+      .commit.more:nth-of-type(3) {
+        transform: translateY(20px) scale(0.9) !important;
+      }
+    }
+  }
+
+  .readme {
+    background: $color_1;
+    padding: 20px;
+    border-radius: 10px;
+  }
+}
+.open .content .commits .commit {
+  cursor: unset;
+}
+:global(h1, h2, h3, h4, h5, h6) {
+  margin: 20px 0 10px;
+  padding: 0;
+  font-weight: bold;
+  -webkit-font-smoothing: antialiased;
+  cursor: text;
+  position: relative;
+}
+
+:global(pre) {
+  background: $color_2;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-sizing: unset;
+}
+
+:global(ul, ol) {
+  padding-left: 30px;
+}

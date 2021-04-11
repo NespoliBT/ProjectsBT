@@ -1,19 +1,19 @@
 <script lang="ts">
-  import type { Enviroment } from "../../types/types";
-  export let enviroment: Enviroment;
+  import type { EnviromentT } from "../../types/types";
+  export let enviroment: EnviromentT;
 
-  import PluginC from "./PluginC.svelte";
+  import Plugin from "@components/Plugin/Plugin.svelte";
 </script>
 
 <div class="enviroment">
   <div class="name">{enviroment.name}</div>
   <div class="plugins">
     {#each enviroment.plugins as plugin}
-      <PluginC {plugin} />
+      <Plugin {plugin} />
     {/each}
   </div>
 </div>
 
 <style lang="scss">
-  @import "./scss/enviroment.scss";
+  @import "./enviroment.scss";
 </style>

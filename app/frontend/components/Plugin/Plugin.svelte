@@ -1,18 +1,18 @@
 <script lang="ts">
-  import type { Plugin } from "../../types/types";
-  import InputC from "./InputC.svelte";
-  export let plugin: Plugin;
+  import type { PluginT } from "../../types/types";
+  import Input from "@components/Input/Input.svelte";
+  export let plugin: PluginT;
 </script>
 
 <div class="plugin">
   <div class="name">{plugin.name}</div>
   <div class="inputs">
     {#each plugin.inputs as input}
-      <InputC {input} />
+      <Input {input} />
     {/each}
   </div>
 </div>
 
 <style lang="scss">
-  @import "./scss/plugin.scss";
+  @import "./plugin.scss";
 </style>

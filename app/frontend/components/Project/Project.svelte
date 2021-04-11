@@ -1,9 +1,10 @@
 <script lang="ts">
   import { fly, scale } from "svelte/transition";
   import { projectService } from "../../services/projectService";
-  import type { Project } from "../../types/types";
-  import Enviroment from "./Enviroment.svelte";
-  export let project: Project;
+  import type { ProjectT } from "../../types/types";
+  import Enviroment from "@components/Enviroment/Enviroment.svelte";
+  import StandalonePlugins from "@components/StandalonePlugins/StandalonePlugins.svelte";
+  export let project: ProjectT;
   let openInfo;
   let openRemovePopup;
 
@@ -28,7 +29,7 @@
         <div class="projectTechnology">{project.technology}</div>
         <div class="projectDescription">{project.description}</div>
         <div class="actions">
-          <div class="edit">Modifica</div>
+          <!-- <div class="edit">Modifica</div> -->
           <div class="delete" on:click={() => (openRemovePopup = true)}>
             Elimina
           </div>
@@ -39,13 +40,17 @@
           {/each}
         </div>
       </div>
-      <div class="right" />
+      <div class="right">
+        {#each project.standalonePlugins as plugin}
+          <StandalonePlugins {plugin} />
+        {/each}
+      </div>
       {#if openRemovePopup}
         <div class="removePopupOverlay">
           <div
             class="removePopup"
-            in:scale={{ duration: 500 }}
-            out:scale={{ duration: 500 }}
+            in:scale={{ duration: 200 }}
+            out:scale={{ duration: 200 }}
           >
             <div class="title">
               Vuoi veramente eliminare<br />
@@ -68,5 +73,5 @@
 {/if}
 
 <style lang="scss">
-  @import "./scss/project.scss";
+  @import "./project.scss";
 </style>

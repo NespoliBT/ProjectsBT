@@ -1,22 +1,23 @@
-export interface Project {
+export interface ProjectT {
   id: number;
   name: string;
   technology: string;
   description: string;
-  enviroments: Enviroment[];
+  enviroments: EnviromentT[];
+  standalonePlugins: PluginT[];
 }
 
-export interface Enviroment {
+export interface EnviromentT {
   name: string;
-  plugins: Plugin[];
+  plugins: PluginT[];
 }
 
-export interface Plugin {
+export interface PluginT {
   name: string;
-  inputs: Input[];
+  inputs: InputT[];
 }
 
-export interface Input {
+export interface InputT {
   name: string;
   type: string;
   value: string;

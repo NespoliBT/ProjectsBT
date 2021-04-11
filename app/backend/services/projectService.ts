@@ -1,3 +1,4 @@
+import { enviromentService } from "./enviromentService";
 import { initDB } from "./initDB";
 
 export module projectService {
@@ -41,5 +42,14 @@ export module projectService {
       `DELETE FROM projects 
       WHERE id = @id`
     ).run({ id });
+
+    let envs = db
+      .prepare(
+        `SELECT id FROM enviroments 
+      WHERE projectId = @id`
+      )
+      .all({ id });
+
+    envs.map((e: { id: number }) => enviromentService.remove(e.id));
   }
 }

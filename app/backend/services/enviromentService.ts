@@ -72,4 +72,20 @@ export module enviromentService {
     // Returns the formatted enviroment object
     return formattedEnviroment;
   }
+
+  export function remove(id: number) {
+    db.prepare(
+      `DELETE FROM enviroments 
+      WHERE id = @id`
+    ).run({ id });
+
+    let plugins = db
+      .prepare(
+        `SELECT id FROM plugins 
+      WHERE enviromentId = @id`
+      )
+      .all({ id });
+
+    plugins.map((p: { id: number }) => pluginService.remove(p.id));
+  }
 }

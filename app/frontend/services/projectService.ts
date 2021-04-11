@@ -12,7 +12,14 @@ export module projectService {
   }
 
   export function createProject(project: NewProject) {
-    let { name, technology, description, enviroments } = project;
+    let {
+      name,
+      technology,
+      description,
+      enviroments,
+      standalonePlugins,
+    } = project;
+
     return new Promise((resolve, reject) => {
       axios
         .post("/projects/new", {
@@ -20,6 +27,7 @@ export module projectService {
           technology,
           description,
           enviroments,
+          standalonePlugins,
         })
         .then(({ data }) => resolve(data))
         .catch((error) => reject(error));

@@ -55,4 +55,11 @@ export module inputService {
     // Returns the formatted input object
     return formattedInput;
   }
+
+  export function remove(id: number) {
+    db.prepare(
+      `DELETE FROM inputs 
+      WHERE id = @id`
+    ).run({ id });
+  }
 }

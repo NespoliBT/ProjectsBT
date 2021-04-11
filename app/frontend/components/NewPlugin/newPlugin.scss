@@ -1,4 +1,4 @@
-@import "../../../scss/variables.scss";
+@import "../../scss/variables.scss";
 
 h3 {
   transition: 0.2s;
@@ -28,18 +28,15 @@ h3 {
       opacity: 1;
     }
   }
-
-  .inputs {
-    display: flex;
-  }
 }
+
+.inputs {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .standalonePlugin {
   padding: 15px;
-  padding-right: 0;
-
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   background: $color_1;
   border-radius: 10px;
   margin-bottom: 10px;

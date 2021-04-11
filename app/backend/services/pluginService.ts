@@ -27,16 +27,39 @@ export module pluginService {
     return plugins;
   }
 
-  export function insertPlugin(envId, p) {
+  export function getPluginsByProjectId(id: number) {
+    // Selects all the plugins
+    const plugs = db
+      .prepare("SELECT * FROM plugins WHERE projectId = (?)")
+      .all(id);
+
+    let plugins = [];
+
+    // Get's all the plugin's inputs
+    plugs.map((p) => {
+      const inputs = inputService.getInputsByPluginId(p.id);
+
+      plugins.push({
+        name: p.name,
+        inputs,
+      });
+    });
+
+    // Returns all the project's plugins
+    return plugins;
+  }
+
+  export function insertPlugin(envId, p, projectId: number = null) {
     // Inserts the plugin
     const plugin = db
       .prepare(
         `INSERT INTO plugins (
           enviromentId,
+          projectId,
           name
-        ) VALUES(?, ?)`
+        ) VALUES(?, ?, ?)`
       )
-      .run(envId, p.name);
+      .run(envId, projectId, p.name);
 
     let formattedInputs = [];
 
@@ -58,5 +81,21 @@ export module pluginService {
 
     // Returns the formatted plugin object
     return formattedPlugin;
+  }
+
+  export function remove(id: number) {
+    db.prepare(
+      `DELETE FROM plugins 
+      WHERE id = @id`
+    ).run({ id });
+
+    let plugins = db
+      .prepare(
+        `SELECT id FROM inputs 
+        WHERE pluginId = @id`
+      )
+      .all({ id });
+
+    plugins.map((i: { id: number }) => inputService.remove(i.id));
   }
 }

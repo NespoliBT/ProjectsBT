@@ -2,7 +2,7 @@
   import { fly } from "svelte/transition";
   import { newProjectStore } from "../../stores";
   import type { NewProject, FormPlugin } from "../../types/types";
-  import NewEnviroments from "./NewEnviroments.svelte";
+  import NewEnviroments from "@components/NewEnviroments/NewEnviroments.svelte";
   import { pluginService } from "../../services/pluginService";
   import { projectService } from "../../services/projectService";
 
@@ -88,7 +88,7 @@
             })}
           cols="30"
           name="desc"
-          rows="10"
+          rows="7"
           placeholder="Descrizione"
         />
         <div class="pluginButtons">
@@ -112,5 +112,5 @@
 {/if}
 
 <style lang="scss">
-  @import "./scss/newProject.scss";
+  @import "./newProject.scss";
 </style>

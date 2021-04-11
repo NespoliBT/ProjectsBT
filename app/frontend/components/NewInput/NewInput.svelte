@@ -1,7 +1,6 @@
 <script lang="ts">
   import { newProjectStore } from "../../stores";
   import type { FormInput } from "../../types/types";
-
   export let input: FormInput;
   export let pluginId;
   export let envId;
@@ -27,19 +26,17 @@
         break;
     }
 
-    if (!envBound) {
-      newProjectStore.update((state) => {
+    newProjectStore.update((state) => {
+      if (!envBound) {
         state.standalonePlugins[pluginId].inputs[inputId].value = value;
-        return state;
-      });
-    } else {
-      newProjectStore.update((state) => {
+      } else {
         state.enviroments[envId].plugins[pluginId].inputs[
           inputId
         ].value = value;
-        return state;
-      });
-    }
+      }
+
+      return state;
+    });
   }
 
   newProjectStore.update((state) => {
@@ -83,5 +80,5 @@
 {/if}
 
 <style lang="scss">
-  @import "./scss/inputs.scss";
+  @import "./newInput.scss";
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { fly } from "svelte/transition";
-  import { newProjectStore } from "../../stores";
-  import type { NewProject, FormPlugin } from "../../types/types";
+  import { newProjectStore, projectsStore } from "../../stores";
+  import type { NewProject, FormPlugin, ProjectT } from "../../types/types";
   import NewEnviroments from "@components/NewEnviroments/NewEnviroments.svelte";
   import { pluginService } from "../../services/pluginService";
   import { projectService } from "../../services/projectService";
@@ -24,11 +24,10 @@
     e.preventDefault();
 
     if (projectName && projectTechnology && projectDescription) {
-      projectService
-        .createProject(newProject)
-        .then((projectEl: HTMLElement) => {
-          console.log(projectEl);
-        });
+      projectService.createProject(newProject).then((project: ProjectT) => {
+        closeForm();
+        projectsStore.update((state) => (state = [...state, project]));
+      });
     }
   }
 

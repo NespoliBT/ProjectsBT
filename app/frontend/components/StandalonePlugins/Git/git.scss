@@ -137,6 +137,8 @@
         margin-left: 20px;
         padding: 20px;
         overflow-y: scroll;
+        position: relative;
+
         .text {
           border-bottom: 3px dashed $color_7;
           margin-bottom: 10px;
@@ -145,6 +147,11 @@
 
         .name {
           margin-top: 10px;
+        }
+        .date {
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
         }
       }
 

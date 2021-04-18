@@ -1,24 +1,27 @@
 import Database from "better-sqlite3";
 import fs from "fs";
+require("dotenv").config();
+const homedir = require("os").homedir();
 
 export module initDB {
-  export let db;
+  export let db: Database;
 
   /**
    *
    * @param dbName The name of the file containing the database
    * @returns A connection to the database
    */
-  export function getDB(dbName) {
+  export function getDB(dbName: string) {
     // If the database folder does not exist it gets created
-    if (!fs.existsSync(`${__dirname}/data/`)) {
-      fs.mkdirSync(`${__dirname}/data/`);
+    if (!fs.existsSync(`${homedir}/.projectsbt/`)) {
+      fs.mkdirSync(`${homedir}/.projectsbt/`);
     }
 
     // If a connection to the database does not already exist it creates one
     // It also creates the database if it does not exist and runs it's migrations
     if (!db) {
-      db = new Database(__dirname + `/data/${dbName}`);
+      db = new Database(`${homedir}/.projectsbt/${dbName}`);
+
       runMigrations(db);
     }
 

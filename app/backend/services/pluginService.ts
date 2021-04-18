@@ -76,7 +76,7 @@ export module pluginService {
     // Creates a formatted plugin object for the client
     const formattedPlugin = {
       name: p.name,
-      formattedInputs,
+      inputs: formattedInputs,
     };
 
     // Returns the formatted plugin object

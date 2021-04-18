@@ -3,7 +3,7 @@
   "version": "v0.7.9",
   "main": "public/build/main.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development electron .",
+    "start": "cross-env MODE=dev electron .",
     "dev": "rollup -cw",
     "build": "rollup -c",
     "postinstall": "electron-builder install-app-deps",
@@ -11,11 +11,14 @@
     "package-all": "npm run build && electron-builder build -mwl",
     "package-linux": "npm run build && electron-builder build --linux",
     "package-win": "npm run build && electron-builder build --win --x64",
-    "release": "electron-builder -p always"
+    "release": "cross-env MODE=prod electron-builder -p always"
   },
   "build": {
     "productName": "ProjectsBT",
     "appId": "com.nespolibt.projectsbt",
+    "extraResources": [
+      "public/build/Database.db"
+    ],
     "files": [
       "node_modules/",
       "public/",
@@ -72,6 +75,7 @@
     "better-sqlite3": "^7.1.2",
     "cors": "^2.8.5",
     "cross-env": "^5.1.6",
+    "dotenv": "^8.2.0",
     "electron-updater": "^4.3.5",
     "emoji-js": "^3.5.0",
     "express": "^4.17.1",

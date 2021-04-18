@@ -3,6 +3,7 @@ import url from "url";
 import { app, BrowserWindow } from "electron";
 import { autoUpdater } from "electron-updater";
 import { runServer } from "./server";
+require("dotenv").config();
 
 // Runs the server resposible for the interaction with the database
 runServer();
@@ -14,13 +15,12 @@ const dispatch = (data) => {
   win.webContents.send("message", data);
 };
 
-// Gets the production value from the .env
-const production: boolean =
-  (process.env.NODE_ENV || "production") === "production";
-if (!production) {
+// Gets the dev value from the .env
+const isDev: boolean = process.env.MODE === "dev" ? true : false;
+
+if (isDev) {
   require("electron-reload")(__dirname);
 }
-
 // Launches the main native window
 function launch() {
   win = new BrowserWindow({

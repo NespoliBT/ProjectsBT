@@ -1,5 +1,5 @@
 import { Writable, writable } from "svelte/store";
-import type { NewProject } from "./types/types";
+import type { NewProject, ProjectT } from "./types/types";
 
 export const newProjectStore: Writable<NewProject> = writable({
   id: 0,
@@ -9,3 +9,5 @@ export const newProjectStore: Writable<NewProject> = writable({
   enviroments: [],
   standalonePlugins: [],
 });
+
+export const projectsStore: Writable<ProjectT[]> = writable([]);

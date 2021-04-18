@@ -4,16 +4,29 @@
   import type { ProjectT } from "../../types/types";
   import Enviroment from "@components/Enviroment/Enviroment.svelte";
   import StandalonePlugins from "@components/StandalonePlugins/StandalonePlugins.svelte";
+  import { projectsStore } from "app/frontend/stores";
   export let project: ProjectT;
   let openInfo;
   let openRemovePopup;
 
   function removeProject() {
     projectService.removeProject(project.id);
+
+    openInfo = false;
+    openRemovePopup = false;
+
+    projectsStore.update(
+      (state) => (state = state.filter((proj) => proj !== project))
+    );
   }
 </script>
 
-<div class="project" tabindex="0" in:scale={{ duration: 500 }}>
+<div
+  class="project"
+  tabindex="0"
+  in:scale={{ duration: 500 }}
+  out:scale={{ duration: 500 }}
+>
   <div class="header" on:click={() => (openInfo = true)}>
     <div class="name">{project.name}</div>
     <div class="technology">{project.technology}</div>

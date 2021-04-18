@@ -20,6 +20,7 @@
   let repo = "";
   let readme: string;
   let description: string;
+
   if (flavour == "github") {
     owner = addrArray[3];
     repo = addrArray[4].split(".")[0];
@@ -44,7 +45,6 @@
   pluginService.getGitBranches(addr).then((data) => {
     branches = data.reverse();
     selectedBranch = branches[0].name;
-    console.log(branches);
   });
 
   pluginService
@@ -52,6 +52,16 @@
     .then((data: any[]) => {
       console.log(data);
       commits = data;
+      commits.map((c, i) => {
+        let date = new Date(c.commit.author.date);
+
+        commits[i].date =
+          date.getDate() +
+          "/" +
+          (date.getMonth() + 1) +
+          "/" +
+          date.getFullYear();
+      });
     });
 
   function selectBranch(name) {
@@ -61,8 +71,17 @@
     pluginService
       .getGitCommitsByBranch(selectedBranch, addr)
       .then((data: any[]) => {
-        console.log(data);
         commits = data;
+        commits.map((c, i) => {
+          let date = new Date(c.commit.author.date);
+
+          commits[i].date =
+            date.getDate() +
+            "/" +
+            (date.getMonth() + 1) +
+            "/" +
+            date.getFullYear();
+        });
       });
   }
 </script>
@@ -135,7 +154,12 @@
                   <div class="text">
                     {emoji.replace_colons(commit.commit.message)}
                   </div>
-                  <div class="name">- {commit.author.login}</div>
+                  <div class="name">
+                    - {commit.author.login}
+                  </div>
+                  <div class="date">
+                    {commit.date}
+                  </div>
                 </div>
               </div>
             {/each}
@@ -175,6 +199,9 @@
                 {emoji.replace_colons(commit.commit.message)}
               </div>
               <div class="name">- {commit.author.login}</div>
+              <div class="date">
+                {commit.date}
+              </div>
             </div>
           </div>
         {/if}

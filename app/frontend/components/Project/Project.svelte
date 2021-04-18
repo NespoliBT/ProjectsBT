@@ -28,7 +28,7 @@
   out:scale={{ duration: 500 }}
 >
   <div class="header" on:click={() => (openInfo = true)}>
-    <div class="name">{project.name} test</div>
+    <div class="name">{project.name}</div>
     <div class="technology">{project.technology}</div>
   </div>
   <div class="description">{project.description}</div>

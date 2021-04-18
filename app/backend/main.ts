@@ -77,26 +77,28 @@ app.on("ready", () => {
 
 // Start of update related stuff
 autoUpdater.on("checking-for-update", () => {
-  dispatch("Checking for update...");
+  dispatch({ message: "checkingForUpdate" });
 });
 
 autoUpdater.on("update-available", (info) => {
-  dispatch("Update available.");
+  dispatch({ message: "updateAvailable" });
 });
 
 autoUpdater.on("update-not-available", (info) => {
-  dispatch("Update not available.");
+  dispatch({ message: "updateNotAvailable", data: info });
 });
 
 autoUpdater.on("error", (err) => {
-  dispatch("Error in auto-updater. " + err);
+  dispatch({ message: "updateError", data: err });
 });
 
 autoUpdater.on("download-progress", (progressObj) => {
-  win.webContents.send("download-progress", progressObj.percent);
+  console.log("Aggiornamento");
+  dispatch({ message: "downloadProgress", data: progressObj.percent });
 });
 
 autoUpdater.on("update-downloaded", (info) => {
+  dispatch({ message: "updateDownloaded" });
   dispatch("Update downloaded");
 });
 // End of update related stuff

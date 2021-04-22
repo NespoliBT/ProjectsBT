@@ -15,4 +15,9 @@ export const inputs = {
     type: "ip",
     placeholder: "Indirizzo",
   },
+  git: {
+    name: "Indirizzo",
+    type: "git",
+    placeholder: "Indirizzo",
+  },
 };

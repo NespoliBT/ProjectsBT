@@ -93,7 +93,6 @@ autoUpdater.on("error", (err) => {
 });
 
 autoUpdater.on("download-progress", (progressObj) => {
-  console.log("Aggiornamento");
   dispatch({ message: "downloadProgress", data: progressObj.percent });
 });
 

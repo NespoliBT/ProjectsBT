@@ -34,7 +34,6 @@
         downloading = true;
         popupInfo = "Aggiornando...";
         progress = params.data;
-        console.log(params.data);
         break;
 
       case "updateDownloaded":

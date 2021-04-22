@@ -24,6 +24,24 @@
       case "ip":
         err = !(regexIP.test(value) || regexAddress.test(value));
         break;
+      case "git":
+        try {
+          let addr = value;
+          const addrArray = addr.split("/");
+          const flavour = addrArray[2].split(".")[0];
+          let owner = "";
+          let repo = "";
+
+          if (flavour == "github") {
+            owner = addrArray[3];
+            repo = addrArray[4].split(".")[0];
+          }
+          err = false;
+        } catch {
+          err = true;
+        }
+
+        break;
     }
 
     newProjectStore.update((state) => {
@@ -41,7 +59,6 @@
 
   newProjectStore.update((state) => {
     if (!envBound) {
-      console.log(state, pluginId);
       state.standalonePlugins[pluginId].inputs = [
         ...state.standalonePlugins[pluginId].inputs,
         {
@@ -64,7 +81,7 @@
   });
 </script>
 
-{#if input.type == "ip"}
+{#if input.type == "ip" || input.type == "git"}
   <input
     type="text"
     class={"ip" + (err ? " err" : "")}

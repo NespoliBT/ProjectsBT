@@ -4,6 +4,7 @@
   import { scale } from "svelte/transition";
   import { pluginService } from "../../../services/pluginService";
   import type { InputT } from "../../../types/types";
+  import { shell } from "electron";
 
   export let inputs: InputT[];
 
@@ -12,10 +13,10 @@
   const emoji = new EmojiConvertor();
   emoji.replace_mode = "unified";
   emoji.allow_native = true;
-
+  let notFound: boolean;
   let addr = inputs[0].value;
-  const addrArray = addr.split("/");
-  const flavour = addrArray[2].split(".")[0];
+  const addrArray = addr?.split("/");
+  const flavour = addrArray[2]?.split(".")[0];
   let owner = "";
   let repo = "";
   let readme: string;
@@ -40,6 +41,9 @@
     .then((data: { readme: any; description: string }) => {
       readme = data.readme;
       description = data.description;
+    })
+    .catch((e) => {
+      notFound = true;
     });
 
   pluginService.getGitBranches(addr).then((data) => {
@@ -85,6 +89,12 @@
       });
   }
 </script>
+
+{#if notFound}
+  <div class="notFound">
+    C'è stato un errore nel caricamento della repository!
+  </div>
+{/if}
 
 {#if open}
   <div

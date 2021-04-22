@@ -1,5 +1,13 @@
 @import "../../../scss/variables.scss";
 
+.notFound {
+  background: $color_5;
+  font-size: 20px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
 .close {
   transition: 0.2s;
   padding: 10px;

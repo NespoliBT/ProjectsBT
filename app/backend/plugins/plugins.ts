@@ -23,7 +23,7 @@ const plugins = [
   {
     name: "Git",
     icon: "",
-    inputs: [i.ip],
+    inputs: [i.git],
     envBound: false,
   },
 ];

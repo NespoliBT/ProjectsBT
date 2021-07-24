@@ -12,13 +12,8 @@ export module projectService {
   }
 
   export function createProject(project: NewProject) {
-    let {
-      name,
-      technology,
-      description,
-      enviroments,
-      standalonePlugins,
-    } = project;
+    let { name, technology, description, enviroments, standalonePlugins } =
+      project;
 
     return new Promise((resolve, reject) => {
       axios
@@ -39,6 +34,15 @@ export module projectService {
       axios
         .post("/projects/remove", { id })
         // ! Sto then e catch non fanno una bega
+        .then(({ data }) => resolve(data))
+        .catch((error) => reject(error));
+    });
+  }
+
+  export function updateInput(id: number, value: string) {
+    return new Promise((resolve, reject) => {
+      axios
+        .post("/inputs/update", { id, value })
         .then(({ data }) => resolve(data))
         .catch((error) => reject(error));
     });

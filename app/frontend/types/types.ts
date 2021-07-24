@@ -21,6 +21,7 @@ export interface InputT {
   name: string;
   type: string;
   value: string;
+  id: number;
 }
 
 export interface NewProject {

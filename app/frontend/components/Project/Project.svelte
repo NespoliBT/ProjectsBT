@@ -6,18 +6,22 @@
   import StandalonePlugins from "@components/StandalonePlugins/StandalonePlugins.svelte";
   import { projectsStore } from "../../stores";
   export let project: ProjectT;
-  let openInfo;
+  let infoOpen = false;
   let openRemovePopup;
 
   function removeProject() {
     projectService.removeProject(project.id);
 
-    openInfo = false;
+    infoOpen = false;
     openRemovePopup = false;
 
     projectsStore.update(
       (state) => (state = state.filter((proj) => proj !== project))
     );
+  }
+
+  function toggleInfo(value: boolean) {
+    infoOpen = value;
   }
 </script>
 
@@ -27,14 +31,14 @@
   in:scale={{ duration: 500 }}
   out:scale={{ duration: 500 }}
 >
-  <div class="header" on:click={() => (openInfo = true)}>
+  <div class="header" on:click={() => toggleInfo(true)}>
     <div class="name">{project.name}</div>
     <div class="technology">{project.technology}</div>
   </div>
   <div class="description">{project.description}</div>
 </div>
 
-{#if openInfo}
+{#if infoOpen}
   <div class="projectInfoOverlay" in:fly={{ x: -500 }} out:fly={{ x: -500 }}>
     <div class="projectInfo">
       <div class="left">
@@ -78,7 +82,7 @@
           </div>
         </div>
       {/if}
-      <div class="closeProjectInfoOverlay" on:click={() => (openInfo = false)}>
+      <div class="closeProjectInfoOverlay" on:click={() => toggleInfo(false)}>
         
       </div>
     </div>

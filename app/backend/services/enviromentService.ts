@@ -27,6 +27,7 @@ export module enviromentService {
 
       enviroments.push({
         name: e.name,
+        id: e.id,
         plugins,
       });
     });

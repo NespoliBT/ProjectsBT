@@ -9,8 +9,6 @@ export module projectController {
    * This function is responsable for the request of all the
    *  projects stored in the database
    *
-   * @param req - The client's request
-   * @param res - The response object
    */
   export function getProjects(req, res) {
     // Gets all the project from the database
@@ -49,17 +47,10 @@ export module projectController {
    *
    * This function is reponsable for the creation of a new project
    *
-   * @param req - The client's request
-   * @param res - The response object
    */
   export function newProject(req, res) {
-    const {
-      name,
-      technology,
-      description,
-      enviroments,
-      standalonePlugins,
-    } = req.body;
+    const { name, technology, description, enviroments, standalonePlugins } =
+      req.body;
 
     // The new project's id is saved when it is inserted in the database
     const id = projectService.insert(name, technology, description);

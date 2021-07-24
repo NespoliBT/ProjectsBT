@@ -19,6 +19,7 @@ export module pluginService {
 
       plugins.push({
         name: p.name,
+        id: p.id,
         inputs,
       });
     });

@@ -1,14 +1,62 @@
 @import "../../scss/variables.scss";
 
 .input {
+  position: relative;
   .name {
     color: $color_4;
     font-weight: 100;
     font-size: 20px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    &:before {
+      transition: 0.2s ease-in-out;
+      opacity: 0;
+      font-family: NerdFont;
+      content: " ";
+      margin-right: -10px;
+      font-size: 20px;
+    }
+
+    &.editable {
+      cursor: pointer;
+      &:hover {
+        color: $color_6;
+        &:before {
+          opacity: 1;
+          margin-right: 5px;
+          margin-left: 5px;
+        }
+      }
+    }
   }
+
+  .value {
+    display: inline;
+  }
+
   .link {
     display: inline;
     text-decoration: underline;
     cursor: pointer;
+  }
+
+  .save {
+    transition: 0.2s;
+    font-family: NerdFont;
+    font-size: 30px;
+    position: absolute;
+    right: 20px;
+    top: 0;
+    animation: fadeIn 0.5s ease-in-out;
+    color: $color_6;
+    cursor: pointer;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+      transform: scale(1.1);
+    }
   }
 }

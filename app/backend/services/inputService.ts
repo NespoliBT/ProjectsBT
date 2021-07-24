@@ -16,6 +16,7 @@ export module inputService {
     inps.map((i) => {
       inputs.push({
         name: i.name,
+        id: i.id,
         type: i.type,
         value: i.value,
       });
@@ -61,5 +62,16 @@ export module inputService {
       `DELETE FROM inputs 
       WHERE id = @id`
     ).run({ id });
+  }
+
+  export function update(id, value) {
+    db.prepare(
+      `UPDATE inputs 
+      SET value = @value 
+      WHERE id = @id`
+    ).run({
+      id,
+      value,
+    });
   }
 }

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const privateToken = "<your-token-here>";
+const privateToken = "6B26ZeeyTKtti_2xKgRV";
 
 export module gitService {
   export async function getGitInfo(addr: string, flavour: string, id: string) {
@@ -185,10 +185,33 @@ async function formatCommits(commits: any, flavour: string, addr: string) {
 
   switch (flavour) {
     case "gitlab":
+      let emailAvatarMap = new Map();
+      let giturl = addrArray[0] + "//" + addrArray[2];
+      let emails = [];
+
+      emails = commits.map((commit) => commit.author_email);
+
+      emails = [...new Set(emails)];
+
+      await Promise.all(
+        emails.map(async (email) => {
+          const { data } = await axios.get(`${giturl}/api/v4/avatar`, {
+            params: {
+              email,
+              size: 64,
+            },
+            headers: {
+              "PRIVATE-TOKEN": privateToken,
+            },
+          });
+
+          emailAvatarMap.set(email, data.avatar_url);
+        })
+      );
+
       formattedCommits = await Promise.all(
         commits.map(async (commit, i) => {
           let formattedCommit = {};
-          let giturl = addrArray[0] + "//" + addrArray[2];
           rawDate = new Date(commit.committed_date);
           date =
             rawDate.getDate() +
@@ -197,21 +220,11 @@ async function formatCommits(commits: any, flavour: string, addr: string) {
             "/" +
             rawDate.getFullYear();
 
-          const avatar = await axios.get(`${giturl}/api/v4/avatar`, {
-            headers: {
-              "PRIVATE-TOKEN": privateToken,
-            },
-            params: {
-              size: "64",
-              email: commit.committer_email,
-            },
-          });
-
           formattedCommit = {
             date,
             title: commit.title,
             author_name: commit.author_name,
-            author_avatar: avatar.data.avatar_url,
+            author_avatar: emailAvatarMap.get(commit.author_email),
           };
 
           return formattedCommit;

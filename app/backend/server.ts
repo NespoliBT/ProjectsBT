@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import projectRoute from "./routes/project";
+import inputRoute from "./routes/input";
 import pluginRoute from "./routes/plugin";
 import { initDB } from "./services/initDB";
 
@@ -19,6 +20,7 @@ export function runServer() {
   // Routes
   app.use("/projects", projectRoute);
   app.use("/plugins", pluginRoute);
+  app.use("/inputs", inputRoute);
 
   // The port used by the server
   app.listen(41968);

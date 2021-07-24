@@ -1,5 +1,6 @@
 <script>
   import NewProject from "@components/NewProject/NewProject.svelte";
+  import SearchProjects from "@components/SearchProjects/SearchProjects.svelte";
   import Projects from "@components/Projects/Projects.svelte";
   import Updater from "@components/Updater/Updater.svelte";
 
@@ -9,8 +10,11 @@
 
 <div class="content">
   <Projects />
-  <NewProject />
   <Updater />
+  <div class="footer">
+    <NewProject />
+    <SearchProjects />
+  </div>
 </div>
 
 <style lang="scss">

@@ -1,1 +1,10 @@
 @import "../scss/variables.scss";
+
+.footer {
+  position: fixed;
+  left: 30px;
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

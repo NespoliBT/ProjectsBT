@@ -2,7 +2,6 @@
   import type { InputT } from "../../types/types";
   import { shell } from "electron";
   export let input: InputT;
-  console.log(input);
 </script>
 
 <div class="input">

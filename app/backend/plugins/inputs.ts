@@ -20,4 +20,9 @@ export const inputs = {
     type: "git",
     placeholder: "Indirizzo",
   },
+  id: {
+    name: "ID",
+    type: "text",
+    placeholder: "ID",
+  },
 };

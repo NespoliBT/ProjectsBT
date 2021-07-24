@@ -5,3 +5,4 @@ yarn-error.log
 release
 .todo
 dist
+pnpm-lock.yaml

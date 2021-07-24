@@ -1,8 +1,9 @@
 @import "../../scss/variables.scss";
 
 .enviroment {
+  transition: 0.5s;
   padding: 15px;
-
+  margin: 10px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -40,13 +41,17 @@
       }
     }
   }
+
+  &.selectedEnv {
+    box-shadow: 0px 0px 2px 2px $color_4;
+  }
 }
 
 .newEnviroment {
   transition: 0.2s;
   font-family: NerdFont;
   border: 2px dashed $color_7;
-  margin-right: 10px;
+  margin: 10px;
   border-radius: 10px;
   padding: 20px;
   display: flex;

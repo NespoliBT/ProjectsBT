@@ -22,25 +22,8 @@
 
     switch (type) {
       case "ip":
-        err = !(regexIP.test(value) || regexAddress.test(value));
-        break;
       case "git":
-        try {
-          let addr = value;
-          const addrArray = addr.split("/");
-          const flavour = addrArray[2].split(".")[0];
-          let owner = "";
-          let repo = "";
-
-          if (flavour == "github") {
-            owner = addrArray[3];
-            repo = addrArray[4].split(".")[0];
-          }
-          err = false;
-        } catch {
-          err = true;
-        }
-
+        err = !(regexIP.test(value) || regexAddress.test(value));
         break;
     }
 
@@ -48,9 +31,8 @@
       if (!envBound) {
         state.standalonePlugins[pluginId].inputs[inputId].value = value;
       } else {
-        state.enviroments[envId].plugins[pluginId].inputs[
-          inputId
-        ].value = value;
+        state.enviroments[envId].plugins[pluginId].inputs[inputId].value =
+          value;
       }
 
       return state;

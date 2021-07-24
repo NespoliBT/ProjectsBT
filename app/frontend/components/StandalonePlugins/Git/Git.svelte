@@ -1,91 +1,73 @@
 <script lang="ts">
-  const EmojiConvertor = require("emoji-js");
   const marked = require("marked");
   import { scale } from "svelte/transition";
-  import { pluginService } from "../../../services/pluginService";
-  import type { InputT } from "../../../types/types";
-  import { shell } from "electron";
+  import { gitService } from "../../../services/pluginServices/gitService";
+  import Loading from "../../Atoms/Loading/Loading.svelte";
 
-  export let inputs: InputT[];
-
-  const commitPerPlugin = 3;
-
+  const EmojiConvertor = require("emoji-js");
   const emoji = new EmojiConvertor();
   emoji.replace_mode = "unified";
   emoji.allow_native = true;
-  let notFound: boolean;
-  let addr = inputs[0].value;
-  const addrArray = addr?.split("/");
-  const flavour = addrArray[2]?.split(".")[0];
-  let owner = "";
-  let repo = "";
-  let readme: string;
-  let description: string;
 
-  if (flavour == "github") {
-    owner = addrArray[3];
-    repo = addrArray[4].split(".")[0];
-  }
+  import type { InputT } from "../../../types/types";
+  export let inputs: InputT[];
 
-  let commits = [];
-  let branches = [];
-  let selectedBranch = "";
+  const commitPerPlugin = 3;
   let open = false;
-
+  let notFound: boolean;
   let commitsOpen = true;
-
   let branchSelectOpen = false;
 
-  pluginService
-    .getGitInfo(addr)
-    .then((data: { readme: any; description: string }) => {
-      readme = data.readme;
-      description = data.description;
-    })
+  const addr = inputs[0]?.value;
+  const id = inputs[1]?.value;
+
+  let readme: string,
+    commits = [],
+    branches = [],
+    selectedBranch = "",
+    branchID: string,
+    flavour: string,
+    repoName: string,
+    repoDescription: string;
+
+  flavour = id ? "gitlab" : "github";
+
+  gitService
+    .getGitInfo(addr, flavour, id)
+    .then(
+      (data: { readme: any; repoName: string; repoDescription: string }) => {
+        readme = data.readme;
+        repoDescription = data.repoDescription;
+        repoName = data.repoName;
+      }
+    )
     .catch((e) => {
       notFound = true;
     });
 
-  pluginService.getGitBranches(addr).then((data) => {
+  gitService.getGitBranches(addr, flavour, id).then((data) => {
     branches = data.reverse();
+
     selectedBranch = branches[0].name;
+    branchID = flavour == "gitlab" ? branches[0].commit.id : selectedBranch;
+
+    gitService
+      .getGitCommitsByBranch(branchID, addr, id, flavour)
+      .then((data) => {
+        commits = data;
+      });
   });
 
-  pluginService
-    .getGitCommitsByBranch(selectedBranch, addr)
-    .then((data: any[]) => {
-      console.log(data);
-      commits = data;
-      commits.map((c, i) => {
-        let date = new Date(c.commit.author.date);
+  function selectBranch(branch) {
+    selectedBranch = branch.name;
 
-        commits[i].date =
-          date.getDate() +
-          "/" +
-          (date.getMonth() + 1) +
-          "/" +
-          date.getFullYear();
-      });
-    });
-
-  function selectBranch(name) {
-    selectedBranch = name;
     branchSelectOpen = false;
+    commits = [];
 
-    pluginService
-      .getGitCommitsByBranch(selectedBranch, addr)
+    gitService
+      .getGitCommitsByBranch(selectedBranch, addr, id, flavour)
       .then((data: any[]) => {
         commits = data;
-        commits.map((c, i) => {
-          let date = new Date(c.commit.author.date);
-
-          commits[i].date =
-            date.getDate() +
-            "/" +
-            (date.getMonth() + 1) +
-            "/" +
-            date.getFullYear();
-        });
       });
   }
 </script>
@@ -109,9 +91,9 @@
   </div>
   <div class="open">
     <div class="header">
-      <div class="name">{repo}</div>
-      {#if description}
-        <div class="description">{description}</div>
+      <div class="name">{repoName}</div>
+      {#if repoDescription}
+        <div class="description">{repoDescription}</div>
       {/if}
     </div>
     <div class="menu">
@@ -136,7 +118,7 @@
                   class={"branch" +
                     (selectedBranch === branch.name ? " current" : "")}
                   in:scale={{ duration: 200, delay: i * 100 }}
-                  on:click={() => selectBranch(branch.name)}
+                  on:click={() => selectBranch(branch)}
                 >
                   {branch.name}
                 </div>
@@ -145,7 +127,7 @@
           {/if}
         </div>
 
-        {#if commits}
+        {#if commits[0]}
           <div class="commits">
             {#each commits as commit, i}
               <div
@@ -155,17 +137,17 @@
                 <div class="author">
                   <img
                     class="propic"
-                    src={commit.author.avatar_url}
-                    alt={commit.author.login}
+                    src={commit.author_avatar}
+                    alt={commit.author_name}
                   />
                 </div>
 
                 <div class="message">
                   <div class="text">
-                    {emoji.replace_colons(commit.commit.message)}
+                    {emoji.replace_colons(commit.title)}
                   </div>
                   <div class="name">
-                    - {commit.author.login}
+                    - {commit.author_name}
                   </div>
                   <div class="date">
                     {commit.date}
@@ -175,7 +157,7 @@
             {/each}
           </div>
         {:else}
-          loading
+          <Loading />
         {/if}
       {:else}
         <div class="readme" in:scale={{ duration: 300 }}>
@@ -187,35 +169,39 @@
 {:else}
   <div class="content">
     <div class="commits">
-      {#each commits as commit, i}
-        {#if i < commitPerPlugin}
-          <div
-            class={"commit" + (i !== 0 ? " more" : "")}
-            style={`top: ${i * 20}px;` +
-              `z-index: ${commitPerPlugin - i};` +
-              `transform: scale(${0.85 + (commitPerPlugin - i) * 0.05});`}
-            on:click={() => (i < commitPerPlugin ? (open = true) : "")}
-          >
-            <div class="author">
-              <img
-                class="propic"
-                src={commit.author.avatar_url}
-                alt={commit.author.login}
-              />
-            </div>
+      {#if commits[0]}
+        {#each commits as commit, i}
+          {#if i < commitPerPlugin}
+            <div
+              class={"commit" + (i !== 0 ? " more" : "")}
+              style={`top: ${i * 20}px;` +
+                `z-index: ${commitPerPlugin - i};` +
+                `transform: scale(${0.85 + (commitPerPlugin - i) * 0.05});`}
+              on:click={() => (i < commitPerPlugin ? (open = true) : "")}
+            >
+              <div class="author">
+                <img
+                  class="propic"
+                  src={commit.author_avatar}
+                  alt={commit.author_name}
+                />
+              </div>
 
-            <div class="message">
-              <div class="text">
-                {emoji.replace_colons(commit.commit.message)}
-              </div>
-              <div class="name">- {commit.author.login}</div>
-              <div class="date">
-                {commit.date}
+              <div class="message">
+                <div class="text">
+                  {emoji.replace_colons(commit.title)}
+                </div>
+                <div class="name">- {commit.author_name}</div>
+                <div class="date">
+                  {commit.date}
+                </div>
               </div>
             </div>
-          </div>
-        {/if}
-      {/each}
+          {/if}
+        {/each}
+      {:else}
+        <Loading />
+      {/if}
     </div>
   </div>
 {/if}

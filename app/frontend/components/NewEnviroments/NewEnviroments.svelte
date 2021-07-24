@@ -73,7 +73,9 @@
 
     enviroments = enviroments.filter((e, i) => i != id);
 
-    selectedEnv = enviroments.length - 1;
+    setTimeout(() => {
+      selectedEnv = enviroments.length - 1;
+    }, 500);
   }
 
   function setEnvName(envId: number) {
@@ -86,7 +88,7 @@
 
 {#each enviroments as enviroment, envId}
   <div
-    class="enviroment"
+    class={`enviroment ${selectedEnv === envId ? "selectedEnv" : ""}`}
     on:mouseenter={() => (selectedEnv = envId)}
     in:fly={{ x: -500 }}
     out:fly={{ x: -500 }}

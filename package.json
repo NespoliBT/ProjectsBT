@@ -11,7 +11,7 @@
     "package-all": "npm run build && electron-builder build -mwl",
     "package-linux": "npm run build && electron-builder build --linux",
     "package-win": "npm run build && electron-builder build --win --x64",
-    "release": "cross-env MODE=prod electron-builder -p always"
+    "release": "cross-env MODE=prod electron-builder -p always -wl"
   },
   "build": {
     "productName": "ProjectsBT",

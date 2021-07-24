@@ -66,15 +66,6 @@
   </div>
 {/if}
 
-<!-- 
-    Todo
-        - checkingForUpdate
-        - updateAvailable
-        - updateNotAvailable
-        - updateError
-        - downloadProgress
-        - updateDownloaded
--->
 <style lang="scss">
   @import "./updater.scss";
 </style>

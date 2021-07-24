@@ -44,3 +44,21 @@ h3 {
     margin-top: 0;
   }
 }
+.flavourBox {
+  font-family: NerdFont;
+  display: flex;
+  background: $color_1;
+  border-radius: 10px;
+  justify-content: space-around;
+  .flavour {
+    font-size: 60px;
+    cursor: pointer;
+    padding: 20px;
+    transition: 0.2s ease-in-out;
+
+    &:hover {
+      color: $color_7;
+      transform: scale(1.1z);
+    }
+  }
+}

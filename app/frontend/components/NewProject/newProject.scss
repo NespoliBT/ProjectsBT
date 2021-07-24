@@ -11,9 +11,6 @@
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  position: fixed;
-  left: 30px;
-  bottom: 30px;
   border-radius: 100px;
   user-select: none;
   cursor: pointer;
@@ -57,6 +54,23 @@
       "title title"
       "left right"
       "submit submit";
+
+    @media (max-width: 600px) {
+      grid-template-areas:
+        "title"
+        "left"
+        "right"
+        "submit";
+      grid-template-columns: 1fr;
+      grid-template-rows: 80px auto auto 50px;
+      overflow-y: scroll;
+
+      .right,
+      .left {
+        height: fit-content;
+        padding: 20px 0;
+      }
+    }
 
     h1 {
       grid-area: title;

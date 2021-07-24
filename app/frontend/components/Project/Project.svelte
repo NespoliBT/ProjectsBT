@@ -4,7 +4,7 @@
   import type { ProjectT } from "../../types/types";
   import Enviroment from "@components/Enviroment/Enviroment.svelte";
   import StandalonePlugins from "@components/StandalonePlugins/StandalonePlugins.svelte";
-  import { projectsStore } from "app/frontend/stores";
+  import { projectsStore } from "../../stores";
   export let project: ProjectT;
   let openInfo;
   let openRemovePopup;
@@ -42,7 +42,7 @@
         <div class="projectTechnology">{project.technology}</div>
         <div class="projectDescription">{project.description}</div>
         <div class="actions">
-          <!-- <div class="edit">Modifica</div> -->
+          <div class="edit">Modifica</div>
           <div class="delete" on:click={() => (openRemovePopup = true)}>
             Elimina
           </div>

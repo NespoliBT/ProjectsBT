@@ -1,0 +1,17 @@
+@mixin button($background) {
+  transition: 0.2s;
+  background-color: $background;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  border-radius: 100px;
+  user-select: none;
+  cursor: pointer;
+  box-shadow: 0 0 20px -10px black;
+
+  &:hover {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}

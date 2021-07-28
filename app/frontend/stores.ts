@@ -13,3 +13,9 @@ export const newProjectStore: Writable<NewProject> = writable({
 export const projectsStore: Writable<ProjectT[]> = writable([]);
 
 export const searchProjectsStore: Writable<string> = writable("");
+
+export const configStore: Writable<{
+  gitlab: string;
+}> = writable({
+  gitlab: "",
+});

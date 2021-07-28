@@ -10,7 +10,7 @@ const plugins = [
   },
   {
     name: "Utente",
-    icon: "",
+    icon: "",
     inputs: [i.username, i.password],
     envBound: true,
   },

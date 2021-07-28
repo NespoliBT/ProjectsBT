@@ -1,6 +1,12 @@
 import axios from "axios";
 
-const privateToken = "6B26ZeeyTKtti_2xKgRV";
+import { configStore } from "../../stores";
+
+let privateToken = "";
+
+configStore.subscribe((state) => {
+  privateToken = state.gitlab;
+});
 
 export module gitService {
   export async function getGitInfo(addr: string, flavour: string, id: string) {

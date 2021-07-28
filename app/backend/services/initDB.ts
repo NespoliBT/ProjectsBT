@@ -78,4 +78,14 @@ function runMigrations(db: Database) {
     value          TEXT
   )
 `);
+
+  // Creates the config table
+  db.exec(`
+  CREATE TABLE IF NOT EXISTS config (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+
+    name           TEXT,
+    value          TEXT
+  )
+`);
 }

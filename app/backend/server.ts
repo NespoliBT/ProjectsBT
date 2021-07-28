@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import configRoute from "./routes/config";
 import projectRoute from "./routes/project";
 import inputRoute from "./routes/input";
 import pluginRoute from "./routes/plugin";
@@ -21,6 +22,7 @@ export function runServer() {
   app.use("/projects", projectRoute);
   app.use("/plugins", pluginRoute);
   app.use("/inputs", inputRoute);
+  app.use("/config", configRoute);
 
   // The port used by the server
   app.listen(41968);

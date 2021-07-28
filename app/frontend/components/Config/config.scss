@@ -1,0 +1,115 @@
+@import "../../scss/variables.scss";
+
+.configBtn {
+  @include button($color_4);
+  font-family: NerdFont;
+  margin-left: 30px;
+  height: 50px;
+  width: 50px;
+}
+
+.configOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  height: 100%;
+  width: 100%;
+  z-index: 100;
+
+  background: $color_2;
+  display: flex;
+
+  .sidebar {
+    width: 33%;
+    padding: 30px;
+    background: $color_1;
+    box-shadow: 0 0 20px -7px black;
+    z-index: 1;
+    .title {
+      font-size: 32px;
+      text-align: center;
+      border-bottom: 2px solid $color_7;
+      padding-bottom: 30px;
+    }
+    ul {
+      padding: 30px;
+      list-style: none;
+      li {
+        @include button($color_2);
+        box-shadow: none;
+        font-size: 25px;
+        padding: 10px 30px;
+      }
+    }
+  }
+  .content {
+    width: 66%;
+    padding: 50px;
+    .title {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+    .description {
+      font-size: 24px;
+      margin-bottom: 50px;
+    }
+    form {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      input,
+      textarea {
+        background: $color_1;
+        resize: none;
+        border-radius: 10px;
+        padding: 15px;
+        font-size: 17px;
+        margin: 5px;
+      }
+      button {
+        @include button($color_6);
+        font-family: NerdFont;
+        height: 50px;
+        width: 50px;
+        margin-left: 30px;
+      }
+      .info {
+        width: 100%;
+        margin: 20px 10px;
+        font-size: 16px;
+        .link {
+          color: $color_8;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .placeholder {
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 66%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: $color_1;
+      font-size: 350px;
+      font-family: NerdFont;
+      user-select: none;
+    }
+  }
+  .close {
+    @include button($color_5);
+    position: absolute;
+    font-family: NerdFont;
+    top: 30px;
+    right: 30px;
+    height: 50px;
+    width: 50px;
+  }
+}

@@ -1,25 +1,10 @@
 @import "../../scss/variables.scss";
 
 .newProjectButton {
-  transition: 0.2s;
-  background-color: $color_6;
+  @include button($color_6);
   font-family: NerdFont;
-  opacity: 0.8;
   height: 50px;
   width: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  border-radius: 100px;
-  user-select: none;
-  cursor: pointer;
-  box-shadow: 0 0 20px -10px black;
-
-  &:hover {
-    opacity: 1;
-    transform: scale(1.05);
-  }
 }
 
 .newProjectFormOverlay {
@@ -97,24 +82,13 @@
     }
 
     .close {
+      @include button($color_5);
       position: absolute;
-      top: 20px;
-      right: 20px;
-      background: $color_5;
-      font-size: 30px;
+      font-family: NerdFont;
+      top: 30px;
+      right: 30px;
       height: 50px;
       width: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: NerdFont;
-      border-radius: 50px;
-      opacity: 0.8;
-      cursor: pointer;
-
-      &:hover {
-        opacity: 1;
-      }
     }
 
     input,

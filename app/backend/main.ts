@@ -28,7 +28,6 @@ function launch() {
     height: 600,
     minWidth: 600,
     minHeight: 400,
-    titleBarStyle: "hidden",
     webPreferences: {
       nodeIntegration: true,
     },

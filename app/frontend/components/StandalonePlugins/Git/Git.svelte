@@ -79,19 +79,22 @@
 {/if}
 
 {#if open}
-  <div
-    class="close"
-    in:scale={{ duration: 300 }}
-    on:click={() => {
-      open = false;
-      branchSelectOpen = false;
-    }}
-  >
-    Chiudi
-  </div>
   <div class="open">
     <div class="header">
-      <div class="name">{repoName}</div>
+      <div class="top">
+        <div
+          class="close"
+          in:scale={{ duration: 300 }}
+          on:click={() => {
+            open = false;
+            branchSelectOpen = false;
+          }}
+        >
+           
+        </div>
+        <div class="name">{repoName}</div>
+      </div>
+      
       {#if repoDescription}
         <div class="description">{repoDescription}</div>
       {/if}

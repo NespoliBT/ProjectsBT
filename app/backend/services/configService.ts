@@ -5,7 +5,6 @@ export module configService {
   const db = initDB.getDB("Database.db");
 
   export function get(name) {
-    console.log(name);
 
     const config = db
       .prepare("SELECT * FROM config WHERE name = @name")
@@ -32,7 +31,5 @@ export module configService {
         }
       );
     }
-
-    console.log(config);
   }
 }

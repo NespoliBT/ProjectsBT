@@ -11,36 +11,47 @@
   margin: 0 auto;
 }
 
-.close {
-  transition: 0.2s;
-  padding: 10px;
-  border-radius: 10px;
-  background: $color_5;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  margin: 0 25%;
-  cursor: pointer;
-  opacity: 0.8;
 
-  &:hover {
-    opacity: 1;
-    transform: scale(1.05);
-  }
-}
 .header {
   display: flex;
   align-items: center;
   flex-direction: column;
 
-  .name {
-    font-size: 50px;
-    text-align: center;
-    width: 100%;
-    font-family: Pacifico;
-    color: $color_4;
+  .top {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    .close {
+      transition: 0.2s;
+      color: $color_7;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 60px;
+      cursor: pointer;
+      opacity: 0.8;
+      font-family: NerdFont;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+    
+      &:hover {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+    }
+
+    .name {
+      font-size: 50px;
+      text-align: center;
+      width: 100%;
+      font-family: Pacifico;
+      color: $color_4;
+      display: inline;
+      margin: 0 50px;
+    }
   }
+  
   .description {
     font-size: 20px;
     text-align: center;

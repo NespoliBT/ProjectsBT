@@ -13,7 +13,8 @@
       const inputs = document.querySelectorAll("input.input");
       inputs.forEach((input: HTMLInputElement) => {
         configService.get(input.name).then((value: string) => {
-          input.value = value;
+          
+          input.value = value ? value : "";
         });
       });
     }, 100);

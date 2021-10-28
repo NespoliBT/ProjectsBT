@@ -3,6 +3,6 @@ projectsbt-*
 public/build 
 yarn-error.log
 release
-.todo
 dist
 pnpm-lock.yaml
+.DS_Store

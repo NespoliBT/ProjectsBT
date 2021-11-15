@@ -4,9 +4,11 @@
   import type { ProjectT } from "../../types/types";
   import Enviroment from "@components/Enviroment/Enviroment.svelte";
   import StandalonePlugins from "@components/StandalonePlugins/StandalonePlugins.svelte";
+  import EditProject from "@components/EditProject/EditProject.svelte";
   import { projectsStore } from "../../stores";
   export let project: ProjectT;
   let infoOpen = false;
+  let editOpen = false;
   let openRemovePopup;
 
   function removeProject() {
@@ -22,6 +24,11 @@
 
   function toggleInfo(value: boolean) {
     infoOpen = value;
+  }
+
+  function enterEditMode() {
+    infoOpen = false;
+    editOpen = true;
   }
 </script>
 
@@ -46,7 +53,7 @@
         <div class="projectTechnology">{project.technology}</div>
         <div class="projectDescription">{project.description}</div>
         <div class="actions">
-          <div class="edit">Modifica</div>
+          <div class="edit" on:click={() => enterEditMode()}>Modifica</div>
           <div class="delete" on:click={() => (openRemovePopup = true)}>
             Elimina
           </div>
@@ -87,6 +94,10 @@
       </div>
     </div>
   </div>
+{/if}
+
+{#if editOpen}
+  <EditProject project/> <!-- Da implementare ??? -->
 {/if}
 
 <style lang="scss">
